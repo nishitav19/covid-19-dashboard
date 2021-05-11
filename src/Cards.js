@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 import indiaFlag from "./images/india.png";
+import usFlag from "./images/us.png";
+import ukFlag from "./images/uk.png";
+import irelandFlag from "./images/ireland.png";
+import canadaFlag from "./images/canada.png";
+import netherlandsFlag from "./images/netherlands.png";
+import germanyFlag from "./images/germany.png";
 
 function Cards() {
   const [us, setUs] = useState(null);
@@ -43,7 +49,7 @@ function Cards() {
               <div className="content has-text-white has-text-weight-semibold underline">
                 United States
               </div>
-              <img src={indiaFlag} alt="india-flag" />
+              <img src={usFlag} alt="us-flag" />
               {us && (
                 <div className="has-text-white has-text-weight-semibold">
                   Tests: {us.tests}
@@ -78,6 +84,7 @@ function Cards() {
               <div className="content has-text-white has-text-weight-semibold underline">
                 Ireland
               </div>
+              <img src={irelandFlag} alt="ireland-flag" />
               {ireland && (
                 <div className="has-text-white has-text-weight-semibold">
                   Tests: {ireland.tests}
@@ -112,6 +119,7 @@ function Cards() {
               <div className="content has-text-white has-text-weight-semibold underline">
                 India
               </div>
+              <img src={indiaFlag} alt="india-flag" />
               {india && (
                 <div className="has-text-white has-text-weight-semibold">
                   Tests: {india.tests}
@@ -146,6 +154,7 @@ function Cards() {
               <div className="content has-text-white has-text-weight-semibold underline">
                 Netherlands
               </div>
+              <img src={netherlandsFlag} alt="netherlands-flag" />
               {netherlands && (
                 <div className="has-text-white has-text-weight-semibold">
                   Tests: {netherlands.tests}
@@ -183,6 +192,7 @@ function Cards() {
               <div className="content has-text-white has-text-weight-semibold underline">
                 Canada
               </div>
+              <img src={canadaFlag} alt="canada-flag" />
               {canada && (
                 <div className="has-text-white has-text-weight-semibold">
                   Tests: {canada.tests}
@@ -217,6 +227,7 @@ function Cards() {
               <div className="content has-text-white has-text-weight-semibold underline">
                 Germany
               </div>
+              <img src={germanyFlag} alt="germany-flag" />
               {germany && (
                 <div className="has-text-white has-text-weight-semibold">
                   Tests: {germany.tests}
@@ -251,6 +262,7 @@ function Cards() {
               <div className="content has-text-white has-text-weight-semibold underline">
                 United Kingdom
               </div>
+              <img src={ukFlag} alt="uk-flag" />
               {uk && (
                 <div className="has-text-white has-text-weight-semibold">
                   Tests: {uk.tests}
