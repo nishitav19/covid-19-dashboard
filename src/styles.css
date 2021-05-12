@@ -16,3 +16,13 @@ svg {
   font-family: sans-serif;
   text-align: center;
 }
+
+.landing-bg {
+  background-image: url("images/svg-1.png");
+  background-size: cover;
+}
+
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
