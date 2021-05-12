@@ -32,10 +32,13 @@ const MapChart = ({ setTooltipContent }) => {
 
   return (
     <>
-      <div className="columns is-mobile is-centered">
-        <p className="is-size-2-desktop is-size-3-tablet is-size-4-mobile pt-6 px-6 mt-1 mb-4 has-text-black has-text-weight-bold has-text-centered">
+      <div className="columns is-mobile is-centered has-background-black">
+        <div
+          className="is-size-2-desktop is-size-3-tablet is-size-4-mobile has-text-centered mt-2 py-5 is-uppercase
+                                has-text-white has-text-weight-bold"
+        >
           Covid-19 Tracker
-        </p>
+        </div>
       </div>
 
       <div style={container}>
@@ -132,7 +135,8 @@ const MapChart = ({ setTooltipContent }) => {
                         outline: "none",
                       },
                       pressed: {
-                        fill: "#E42",
+                        // fill: "#E42",
+                        fill: "#ca4cf5",
                         outline: "none",
                       },
                     }}
@@ -158,7 +162,7 @@ const container = {
 
 const containerContent = {
   position: "absolute",
-  top: "0",
+  top: 50,
   left: "0",
   right: "0",
   bottom: "0",
