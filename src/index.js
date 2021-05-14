@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import ReactTooltip from "react-tooltip";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import App from "./App";
+import India from "./countries/India";
 
-import "./styles.css";
-
-import MapChart from "./MapChart";
-
-function App() {
-  const [content, setContent] = useState("");
-  return (
-    <div>
-      <MapChart setTooltipContent={setContent} />
-      <ReactTooltip>{content}</ReactTooltip>
-    </div>
-  );
-}
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(
+  <React.StrictMode>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <App />
+        </Route>
+        <Route exact path="/india">
+          <India />
+        </Route>
+      </Switch>
+    </Router>
+  </React.StrictMode>,
+  document.getElementById("root")
+);

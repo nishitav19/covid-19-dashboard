@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import indiaFlag from "./images/india.png";
 import usFlag from "./images/us.png";
 import ukFlag from "./images/uk.png";
@@ -147,6 +148,14 @@ function Cards() {
                       Deaths: {india.deaths}
                     </div>
                   )}
+                  <div className="is-hidden-touch">
+                    <Link
+                      to="/india"
+                      className="purple has-text-weight-semibold"
+                    >
+                      View more
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
