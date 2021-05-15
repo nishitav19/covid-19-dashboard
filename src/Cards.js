@@ -148,14 +148,14 @@ function Cards() {
                       Deaths: {india.deaths}
                     </div>
                   )}
-                  <div className="is-hidden-touch">
+                  {/* <div className="is-hidden-touch">
                     <Link
                       to="/india"
                       className="purple has-text-weight-semibold"
                     >
                       View more
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
