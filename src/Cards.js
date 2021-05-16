@@ -8,6 +8,16 @@ import canadaFlag from "./images/canada.png";
 import netherlandsFlag from "./images/netherlands.png";
 import germanyFlag from "./images/germany.png";
 
+const rounded = (num) => {
+  if (num > 1000000000) {
+    return Math.round(num / 100000000) / 10 + "Bn";
+  } else if (num > 1000000) {
+    return Math.round(num / 100000) / 10 + "M";
+  } else {
+    return Math.round(num / 100) / 10 + "K";
+  }
+};
+
 function Cards() {
   const [us, setUs] = useState(null);
   const [ireland, setIreland] = useState(null);
@@ -45,9 +55,9 @@ function Cards() {
     <>
       <section className="landing-bg">
         <div className="container py-6 mt-6">
-          <div className="columns mx-5 is-vcentered is-size-3-widescreen-only is-size-5-tablet is-size-6-mobile">
+          <div className="columns mx-5 is-vcentered is-size-3-widescreen-only is-size-5-desktop is-size-6-tablet is-size-6-mobile">
             <div className="column">
-              <div className="box">
+              <div className="box" data-aos="fade-left">
                 <div className="card-content has-text-centered">
                   <div className="content has-text-weight-semibold underline">
                     United States
@@ -55,34 +65,39 @@ function Cards() {
                   <img src={usFlag} alt="us-flag" />
                   {us && (
                     <div className="has-text-weight-semibold">
-                      Tests: {us.tests}
+                      Tests: {`${rounded(us.tests)}`}
                     </div>
                   )}
                   {us && (
                     <div className="has-text-weight-semibold">
-                      Confirmed: {us.cases}
+                      Confirmed: {`${rounded(us.cases)}`}
                     </div>
                   )}
                   {us && (
                     <div className="has-text-weight-semibold">
-                      Active: {us.active}
+                      Active: {`${rounded(us.active)}`}
                     </div>
                   )}
                   {us && (
                     <div className="has-text-weight-semibold">
-                      Recovered: {us.recovered}
+                      Recovered: {`${rounded(us.recovered)}`}
                     </div>
                   )}
                   {us && (
                     <div className="has-text-weight-semibold">
-                      Deaths: {us.deaths}
+                      Deaths: {`${rounded(us.deaths)}`}
                     </div>
                   )}
+                  {/* <div className="is-hidden-touch">
+                    <Link to="/usa" className="purple has-text-weight-semibold">
+                      View more
+                    </Link>
+                  </div> */}
                 </div>
               </div>
             </div>
             <div className="column">
-              <div className="box">
+              <div className="box" data-aos="fade-left">
                 <div className="card-content has-text-centered">
                   <div className="content has-text-weight-semibold underline">
                     Ireland
@@ -90,34 +105,34 @@ function Cards() {
                   <img src={irelandFlag} alt="ireland-flag" />
                   {ireland && (
                     <div className="has-text-weight-semibold">
-                      Tests: {ireland.tests}
+                      Tests: {`${rounded(ireland.tests)}`}
                     </div>
                   )}
                   {ireland && (
                     <div className="has-text-weight-semibold">
-                      Confirmed: {ireland.cases}
+                      Confirmed: {`${rounded(ireland.cases)}`}
                     </div>
                   )}
                   {ireland && (
                     <div className="has-text-weight-semibold">
-                      Active: {ireland.active}
+                      Active: {`${rounded(ireland.active)}`}
                     </div>
                   )}
                   {ireland && (
                     <div className="has-text-weight-semibold">
-                      Recovered: {ireland.recovered}
+                      Recovered: {`${rounded(ireland.recovered)}`}
                     </div>
                   )}
                   {ireland && (
                     <div className="has-text-weight-semibold">
-                      Deaths: {ireland.deaths}
+                      Deaths: {`${rounded(ireland.deaths)}`}
                     </div>
                   )}
                 </div>
               </div>
             </div>
             <div className="column">
-              <div className="box">
+              <div className="box" data-aos="fade-left">
                 <div className="card-content has-text-centered">
                   <div className="content has-text-weight-semibold underline">
                     India
@@ -125,27 +140,27 @@ function Cards() {
                   <img src={indiaFlag} alt="india-flag" />
                   {india && (
                     <div className="has-text-weight-semibold">
-                      Tests: {india.tests}
+                      Tests: {`${rounded(india.tests)}`}
                     </div>
                   )}
                   {india && (
                     <div className="has-text-weight-semibold">
-                      Confirmed: {india.cases}
+                      Confirmed: {`${rounded(india.cases)}`}
                     </div>
                   )}
                   {india && (
                     <div className="has-text-weight-semibold">
-                      Active: {india.active}
+                      Active: {`${rounded(india.active)}`}
                     </div>
                   )}
                   {india && (
                     <div className="has-text-weight-semibold">
-                      Recovered: {india.recovered}
+                      Recovered: {`${rounded(india.recovered)}`}
                     </div>
                   )}
                   {india && (
                     <div className="has-text-weight-semibold">
-                      Deaths: {india.deaths}
+                      Deaths: {`${rounded(india.deaths)}`}
                     </div>
                   )}
                   {/* <div className="is-hidden-touch">
@@ -160,7 +175,7 @@ function Cards() {
               </div>
             </div>
             <div className="column">
-              <div className="box">
+              <div className="box" data-aos="fade-left">
                 <div className="card-content has-text-centered">
                   <div className="content has-text-weight-semibold underline">
                     Netherlands
@@ -168,27 +183,27 @@ function Cards() {
                   <img src={netherlandsFlag} alt="netherlands-flag" />
                   {netherlands && (
                     <div className="has-text-weight-semibold">
-                      Tests: {netherlands.tests}
+                      Tests: {`${rounded(netherlands.tests)}`}
                     </div>
                   )}
                   {netherlands && (
                     <div className="has-text-weight-semibold">
-                      Confirmed: {netherlands.cases}
+                      Confirmed: {`${rounded(netherlands.cases)}`}
                     </div>
                   )}
                   {netherlands && (
                     <div className="has-text-weight-semibold">
-                      Active: {netherlands.active}
+                      Active: {`${rounded(netherlands.active)}`}
                     </div>
                   )}
                   {netherlands && (
                     <div className="has-text-weight-semibold">
-                      Recovered: {netherlands.recovered}
+                      Recovered: {`${rounded(netherlands.recovered)}`}
                     </div>
                   )}
                   {netherlands && (
                     <div className="has-text-weight-semibold">
-                      Deaths: {netherlands.deaths}
+                      Deaths: {`${rounded(netherlands.deaths)}`}
                     </div>
                   )}
                 </div>
@@ -200,44 +215,9 @@ function Cards() {
 
       <section className="landing-bg">
         <div className="container py-6 mt-6">
-          <div className="columns mx-5 is-size-3-widescreen-only is-size-5-tablet is-size-6-mobile">
+          <div className="columns mx-5 is-size-3-widescreen-only is-size-5-desktop is-size-6-tablet is-size-6-mobile">
             <div className="column">
-              <div className="box">
-                <div className="card-content has-text-centered">
-                  <div className="content has-text-weight-semibold underline">
-                    Canada
-                  </div>
-                  <img src={canadaFlag} alt="canada-flag" />
-                  {canada && (
-                    <div className="has-text-weight-semibold">
-                      Tests: {canada.tests}
-                    </div>
-                  )}
-                  {canada && (
-                    <div className="has-text-weight-semibold">
-                      Confirmed: {canada.cases}
-                    </div>
-                  )}
-                  {canada && (
-                    <div className="has-text-weight-semibold">
-                      Active: {canada.active}
-                    </div>
-                  )}
-                  {canada && (
-                    <div className="has-text-weight-semibold">
-                      Recovered: {canada.recovered}
-                    </div>
-                  )}
-                  {canada && (
-                    <div className="has-text-weight-semibold">
-                      Deaths: {canada.deaths}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="column">
-              <div className="box">
+              <div className="box" data-aos="fade-right">
                 <div className="card-content has-text-centered">
                   <div className="content has-text-weight-semibold underline">
                     Germany
@@ -245,34 +225,77 @@ function Cards() {
                   <img src={germanyFlag} alt="germany-flag" />
                   {germany && (
                     <div className="has-text-weight-semibold">
-                      Tests: {germany.tests}
+                      Tests: {`${rounded(germany.tests)}`}
                     </div>
                   )}
                   {germany && (
                     <div className="has-text-weight-semibold">
-                      Confirmed: {germany.cases}
+                      Confirmed: {`${rounded(germany.cases)}`}
                     </div>
                   )}
                   {germany && (
                     <div className="has-text-weight-semibold">
-                      Active: {germany.active}
+                      Active: {`${rounded(germany.active)}`}
                     </div>
                   )}
                   {germany && (
                     <div className="has-text-weight-semibold">
-                      Recovered: {germany.recovered}
+                      Recovered: {`${rounded(germany.recovered)}`}
                     </div>
                   )}
                   {germany && (
                     <div className="has-text-weight-semibold">
-                      Deaths: {germany.deaths}
+                      Deaths: {`${rounded(germany.deaths)}`}
                     </div>
                   )}
                 </div>
               </div>
             </div>
             <div className="column">
-              <div className="box">
+              <div className="box" data-aos="fade-right">
+                <div className="card-content has-text-centered">
+                  <div className="content has-text-weight-semibold underline">
+                    Canada
+                  </div>
+                  <img src={canadaFlag} alt="canada-flag" />
+                  {canada && (
+                    <div className="has-text-weight-semibold">
+                      Tests: {`${rounded(canada.tests)}`}
+                    </div>
+                  )}
+                  {canada && (
+                    <div className="has-text-weight-semibold">
+                      Confirmed: {`${rounded(canada.cases)}`}
+                    </div>
+                  )}
+                  {canada && (
+                    <div className="has-text-weight-semibold">
+                      Active: {`${rounded(canada.active)}`}
+                    </div>
+                  )}
+                  {canada && (
+                    <div className="has-text-weight-semibold">
+                      Recovered: {`${rounded(canada.recovered)}`}
+                    </div>
+                  )}
+                  {canada && (
+                    <div className="has-text-weight-semibold">
+                      Deaths: {`${rounded(canada.deaths)}`}
+                    </div>
+                  )}
+                  {/* <div className="is-hidden-touch">
+                    <Link
+                      to="/canada"
+                      className="purple has-text-weight-semibold"
+                    >
+                      View more
+                    </Link>
+                  </div> */}
+                </div>
+              </div>
+            </div>
+            <div className="column">
+              <div className="box" data-aos="fade-right">
                 <div className="card-content has-text-centered">
                   <div className="content has-text-weight-semibold underline">
                     United Kingdom
@@ -280,29 +303,37 @@ function Cards() {
                   <img src={ukFlag} alt="uk-flag" />
                   {uk && (
                     <div className="has-text-weight-semibold">
-                      Tests: {uk.tests}
+                      Tests: {`${rounded(uk.tests)}`}
                     </div>
                   )}
                   {uk && (
                     <div className="has-text-weight-semibold">
-                      Confirmed: {uk.cases}
+                      Confirmed: {`${rounded(uk.cases)}`}
                     </div>
                   )}
                   {uk && (
                     <div className="has-text-weight-semibold">
-                      Active: {uk.active}
+                      Active: {`${rounded(uk.active)}`}
                     </div>
                   )}
                   {uk && (
                     <div className="has-text-weight-semibold">
-                      Recovered: {uk.recovered}
+                      Recovered: {`${rounded(uk.recovered)}`}
                     </div>
                   )}
                   {uk && (
                     <div className="has-text-weight-semibold">
-                      Deaths: {uk.deaths}
+                      Deaths: {`${rounded(uk.deaths)}`}
                     </div>
                   )}
+                  {/* <div className="is-hidden-touch">
+                    <Link
+                      to="/uk"
+                      className="purple has-text-weight-semibold"
+                    >
+                      View more
+                    </Link>
+                  </div> */}
                 </div>
               </div>
             </div>
