@@ -7,10 +7,10 @@ import {
 } from "react-simple-maps";
 import "bulma/css/bulma.css";
 import Cards from "./Cards";
+import globalMap from "./globalMap";
 import { scaleLinear } from "d3-scale";
 
-const geoUrl =
-  "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+const geoUrl = globalMap;
 
 const confirmedColorScale = scaleLinear()
   .domain([0, 500000])
@@ -99,7 +99,7 @@ const MapChart = ({ setTooltipContent }) => {
                   geography={geo}
                   fill={d ? recoveredColorScale(d["recovered"]) : "#F5F4F6"}
                   onMouseEnter={() => {
-                    const countryData = data.find((s) => {
+                    data.find((s) => {
                       const { NAME } = geo.properties;
                       if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
                         // setTooltipContent(`${NAME}: ${s.active} Cases`);
@@ -160,7 +160,7 @@ const MapChart = ({ setTooltipContent }) => {
                   geography={geo}
                   fill={d ? confirmedColorScale(d["active"]) : "#F5F4F6"}
                   onMouseEnter={() => {
-                    const countryData = data.find((s) => {
+                    data.find((s) => {
                       const { NAME } = geo.properties;
                       if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
                         // setTooltipContent(`${NAME}: ${s.active} Cases`);
@@ -249,7 +249,7 @@ const MapChart = ({ setTooltipContent }) => {
                         geography={geo}
                         fill={d ? confirmedColorScale(d["active"]) : "#F5F4F6"}
                         onMouseEnter={() => {
-                          const countryData = data.find((s) => {
+                          data.find((s) => {
                             const { NAME } = geo.properties;
                             if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
                               // setTooltipContent(`${NAME}: ${s.active} Cases`);
