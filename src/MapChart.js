@@ -20,6 +20,10 @@ const recoveredColorScale = scaleLinear()
   .domain([0, 10000000])
   .range(["#e5f5e0", "#74c476"]);
 
+const deathsColorScale = scaleLinear()
+  .domain([1000, 300000])
+  .range(["#deebf7", "#4292c6"]);
+
 const rounded = (num) => {
   if (num > 1000000000) {
     return Math.round(num / 100000000) / 10 + "Bn";
@@ -36,10 +40,7 @@ const MapChart = ({ setTooltipContent }) => {
   const [data, setData] = useState([]);
   const [confirmed, setConfirmed] = useState(true);
   const [recovered, setRecovered] = useState(true);
-  // const [minConfirmed, setMinConfirmed] = useState([]);
-  // const [maxConfirmed, setMaxConfirmed] = useState([]);
-  // const [minRecovered, setMinRecovered] = useState([]);
-  // const [maxRecovered, setMaxRecovered] = useState([]);
+  const [deaths, setDeaths] = useState(true);
 
   useEffect(() => {
     fetch("https://corona.lmao.ninja/v2/countries?yesterday=&sort=", {
@@ -55,154 +56,172 @@ const MapChart = ({ setTooltipContent }) => {
         .then((res) => {
           console.log(res.data);
           setData(res.data);
-          // let finalObj = {};
-          // const initialElem = res.data[0];
-          // const keyNames = Object.keys(initialElem);
-          // keyNames.forEach((keyName) => {
-          //   finalObj[keyName] = [];
-          // });
-          // res.data.forEach((dataItm) => {
-          //   keyNames.forEach((keyName) => {
-          //     finalObj[keyName].push(dataItm[keyName] || null);
-          //   });
-          // });
-          // let cases = finalObj.cases;
-          // let recovered = finalObj.recovered;
-          // setMinConfirmed(Math.min(...cases));
-          // setMaxConfirmed(Math.max(...cases));
-          // setMinRecovered(Math.min(...recovered));
-          // setMaxRecovered(Math.max(...recovered));
         })
     );
   }, [ComposableMap]);
 
-  // const confirmedColorScale = scaleLinear()
-  //   .domain([minConfirmed, maxConfirmed])
-  //   .range(["#ffedea", "#ff5233"]);
+const handleRecovered = () => {
+  setRecovered(
+    data.length > 0 && (
+      <Geographies geography={geoUrl}>
+        {({ geographies }) =>
+          geographies.map((geo) => {
+            const d = data.find(
+              (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
+            );
+            return (
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill={d ? recoveredColorScale(d["recovered"]) : "#F5F4F6"}
+                onMouseEnter={() => {
+                  data.find((s) => {
+                    const { NAME } = geo.properties;
+                    if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
+                      setTooltipContent(
+                        `${NAME} — ${rounded(s.recovered)} Recovered`
+                      );
+                    }
+                  });
+                }}
+                onMouseLeave={() => {
+                  setTooltipContent("");
+                }}
+                style={{
+                  default: {
+                    outline: "none",
+                    stroke: "#ca4cf5",
+                    strokeWidth: 0.1,
+                  },
+                  pressed: {
+                    stroke: "#ca4cf5",
+                    strokeWidth: 0.1,
+                    outline: "none",
+                  },
+                  hover: {
+                    stroke: "#ca4cf5",
+                    strokeWidth: 0.1,
+                    outline: "none",
+                  },
+                }}
+              />
+            );
+          })
+        }
+      </Geographies>
+    )
+  );
+  setConfirmed(false);
+  setDeaths(false);
+};
 
-  // const recoveredColorScale = scaleLinear()
-  //   .domain([minRecovered, maxRecovered])
-  //   .range(["#f7fcf5", "#00441b"]);
+const handleConfirmed = () => {
+  setRecovered(false);
+  setDeaths(false);
+  setConfirmed(
+    data.length > 0 && (
+      <Geographies geography={geoUrl}>
+        {({ geographies }) =>
+          geographies.map((geo) => {
+            const d = data.find(
+              (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
+            );
+            return (
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill={d ? confirmedColorScale(d["active"]) : "#F5F4F6"}
+                onMouseEnter={() => {
+                  data.find((s) => {
+                    const { NAME } = geo.properties;
+                    if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
+                      setTooltipContent(`${NAME} — ${rounded(s.cases)} Cases`);
+                    }
+                  });
+                }}
+                onMouseLeave={() => {
+                  setTooltipContent("");
+                }}
+                style={{
+                  default: {
+                    outline: "none",
+                    stroke: "#F08080",
+                    strokeWidth: 0.2,
+                  },
+                  pressed: {
+                    stroke: "#F08080",
+                    strokeWidth: 0.2,
+                    outline: "none",
+                  },
+                  hover: {
+                    stroke: "#F08080",
+                    strokeWidth: 0.2,
+                    outline: "none",
+                  },
+                }}
+              />
+            );
+          })
+        }
+      </Geographies>
+    )
+  );
+};
 
-  const handleRecovered = () => {
-    setConfirmed(
-      data.length > 0 && (
-        <Geographies geography={geoUrl}>
-          {({ geographies }) =>
-            geographies.map((geo) => {
-              const d = data.find(
-                (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
-              );
-              return (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  fill={d ? recoveredColorScale(d["recovered"]) : "#F5F4F6"}
-                  onMouseEnter={() => {
-                    data.find((s) => {
-                      const { NAME } = geo.properties;
-                      if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
-                        // setTooltipContent(`${NAME}: ${s.active} Cases`);
-                        setTooltipContent(
-                          `${NAME} — ${rounded(s.recovered)} Recovered`
-                        );
-                      }
-                    });
-                  }}
-                  onMouseLeave={() => {
-                    setTooltipContent("");
-                  }}
-                  style={{
-                    default: {
-                      // fill: "#D6D6DA",
-                      // fill: "#989898",
-                      outline: "none",
-                      // stroke: "#EAEAEC",
-                      stroke: "#D6D6DA",
-                      strokeWidth: 0.6,
-                    },
-                    pressed: {
-                      // fill: "#E42",
-                      // fill: "#ca4cf5",
-                      stroke: "#D6D6DA",
-                      strokeWidth: 0.6,
-                      outline: "none",
-                    },
-                    hover: {
-                      stroke: "#D6D6DA",
-                      strokeWidth: 0.6,
-                      outline: "none",
-                    },
-                  }}
-                />
-              );
-            })
-          }
-        </Geographies>
-      )
-    );
-    setRecovered(false);
-  };
-
-  const handleConfirmed = () => {
-    setConfirmed(false);
-    setRecovered(
-      data.length > 0 && (
-        <Geographies geography={geoUrl}>
-          {({ geographies }) =>
-            geographies.map((geo) => {
-              const d = data.find(
-                (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
-              );
-              return (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  fill={d ? confirmedColorScale(d["active"]) : "#F5F4F6"}
-                  onMouseEnter={() => {
-                    data.find((s) => {
-                      const { NAME } = geo.properties;
-                      if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
-                        // setTooltipContent(`${NAME}: ${s.active} Cases`);
-                        setTooltipContent(
-                          `${NAME} — ${rounded(s.cases)} Cases`
-                        );
-                      }
-                    });
-                  }}
-                  onMouseLeave={() => {
-                    setTooltipContent("");
-                  }}
-                  style={{
-                    default: {
-                      // fill: "#D6D6DA",
-                      // fill: "#989898",
-                      outline: "none",
-                      // stroke: "#EAEAEC",
-                      stroke: "#F08080",
-                      strokeWidth: 0.2,
-                    },
-                    pressed: {
-                      // fill: "#E42",
-                      // fill: "#ca4cf5",
-                      stroke: "#F08080",
-                      strokeWidth: 0.2,
-                      outline: "none",
-                    },
-                    hover: {
-                      stroke: "#F08080",
-                      strokeWidth: 0.2,
-                      outline: "none",
-                    },
-                  }}
-                />
-              );
-            })
-          }
-        </Geographies>
-      )
-    );
-  };
+const handleDeaths = () => {
+  setConfirmed(false);
+  setRecovered(false);
+  setDeaths(
+    data.length > 0 && (
+      <Geographies geography={geoUrl}>
+        {({ geographies }) =>
+          geographies.map((geo) => {
+            const d = data.find(
+              (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
+            );
+            return (
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill={d ? deathsColorScale(d["deaths"]) : "#F5F4F6"}
+                onMouseEnter={() => {
+                  data.find((s) => {
+                    const { NAME } = geo.properties;
+                    if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
+                      setTooltipContent(
+                        `${NAME} — ${rounded(s.deaths)} Deaths`
+                      );
+                    }
+                  });
+                }}
+                onMouseLeave={() => {
+                  setTooltipContent("");
+                }}
+                style={{
+                  default: {
+                    outline: "none",
+                    stroke: "#08519c",
+                    strokeWidth: 0.1,
+                  },
+                  pressed: {
+                    stroke: "#08519c",
+                    strokeWidth: 0.1,
+                    outline: "none",
+                  },
+                  hover: {
+                    stroke: "#08519c",
+                    strokeWidth: 0.1,
+                    outline: "none",
+                  },
+                }}
+              />
+            );
+          })
+        }
+      </Geographies>
+    )
+  );
+};
 
   return (
     <>
@@ -215,9 +234,16 @@ const MapChart = ({ setTooltipContent }) => {
         </div>
       </div>
 
-      <div className="columns is-mobile is-centered">
-        <button onClick={handleConfirmed}>Confirmed</button>
-        <button onClick={handleRecovered}>Recovered</button>
+      <div className="columns is-mobile is-centered mb-5 pb-2">
+        <button onClick={handleConfirmed} className="button">
+          Confirmed
+        </button>
+        <button onClick={handleRecovered} className="button">
+          Recovered
+        </button>
+        <button onClick={handleDeaths} className="button">
+          Deaths
+        </button>
       </div>
 
       <div style={container}>
@@ -236,7 +262,7 @@ const MapChart = ({ setTooltipContent }) => {
             height={400}
             style={{ width: "100%", height: "100%" }}
           >
-            {data.length > 0 && (
+            {confirmed && data.length > 0 && (
               <Geographies geography={geoUrl}>
                 {({ geographies }) =>
                   geographies.map((geo) => {
@@ -252,7 +278,6 @@ const MapChart = ({ setTooltipContent }) => {
                           data.find((s) => {
                             const { NAME } = geo.properties;
                             if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
-                              // setTooltipContent(`${NAME}: ${s.active} Cases`);
                               setTooltipContent(
                                 `${NAME} — ${rounded(s.cases)} Cases`
                               );
@@ -264,16 +289,11 @@ const MapChart = ({ setTooltipContent }) => {
                         }}
                         style={{
                           default: {
-                            // fill: "#D6D6DA",
-                            // fill: "#989898",
                             outline: "none",
-                            // stroke: "#EAEAEC",
                             stroke: "#F08080",
                             strokeWidth: 0.2,
                           },
                           pressed: {
-                            // fill: "#E42",
-                            // fill: "#ca4cf5",
                             outline: "none",
                           },
                           hover: {
@@ -288,8 +308,10 @@ const MapChart = ({ setTooltipContent }) => {
                 }
               </Geographies>
             )}
-            {confirmed}
+
             {recovered}
+            {deaths}
+
             {/* </ZoomableGroup> */}
           </ComposableMap>
         </div>
