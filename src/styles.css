@@ -17,9 +17,13 @@ svg {
   text-align: center;
 }
 
-.landing-bg {
-  background-image: url("images/svg-1.png");
-  background-size: cover;
+.bg {
+   /* background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%); */
+   background: black;
+}
+
+.lilac {
+  color: #ca4cf5;
 }
 
 .underline {
@@ -27,6 +31,59 @@ svg {
   text-underline-offset: 5px;
 }
 
+.landing-bg {
+  background-image: url("images/svg-1.png");
+  background-size: cover;
+}
+
 .purple {
   color: #862be7;
+}
+
+.btn {
+  background-color: #862be7;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 9px 20px;
+  font-size: 16px;
+  margin: 0 20px;
+}
+
+@media only screen and (max-width: 450px) {
+  .logo-size {
+    width: 160px;
+  }
+  .btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    margin: 0 5px;
+  }
+}
+
+@media only screen and (max-width: 1037px) and (min-width: 925px) {
+  .btn {
+    padding: 9px 20px;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 924px) and (min-width: 519px) {
+  .btn {
+    padding: 7px 14px;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 519px) and (min-width: 450px) {
+  .btn {
+    padding: 6px 16px;
+    font-size: 13px;
+    margin: 0 8px;
+  }
 }

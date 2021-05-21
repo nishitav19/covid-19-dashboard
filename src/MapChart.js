@@ -225,7 +225,7 @@ const handleDeaths = () => {
 
   return (
     <>
-      <div className="columns is-mobile is-centered has-background-black">
+      <div className="columns is-mobile is-centered has-background-black mb-5">
         <div
           className="is-size-2-desktop is-size-3-tablet is-size-4-mobile has-text-centered mt-2 py-5 is-uppercase
                                 has-text-white has-text-weight-bold"
@@ -234,14 +234,14 @@ const handleDeaths = () => {
         </div>
       </div>
 
-      <div className="columns is-mobile is-centered mb-5 pb-2">
-        <button onClick={handleConfirmed} className="button">
+      <div className="columns is-mobile is-centered mb-5 pb-2 mt-1">
+        <button onClick={handleConfirmed} className="btn">
           Confirmed
         </button>
-        <button onClick={handleRecovered} className="button">
+        <button onClick={handleRecovered} className="btn">
           Recovered
         </button>
-        <button onClick={handleDeaths} className="button">
+        <button onClick={handleDeaths} className="btn">
           Deaths
         </button>
       </div>
