@@ -41,6 +41,9 @@ const MapChart = ({ setTooltipContent }) => {
   const [confirmed, setConfirmed] = useState(true);
   const [recovered, setRecovered] = useState(true);
   const [deaths, setDeaths] = useState(true);
+  const [btn1, setBtn1] = useState(null);
+  const [btn2, setBtn2] = useState(null);
+  const [btn3, setBtn3] = useState(null);
 
   useEffect(() => {
     fetch("https://corona.lmao.ninja/v2/countries?yesterday=&sort=", {
@@ -60,168 +63,179 @@ const MapChart = ({ setTooltipContent }) => {
     );
   }, [ComposableMap]);
 
-const handleRecovered = () => {
-  setRecovered(
-    data.length > 0 && (
-      <Geographies geography={geoUrl}>
-        {({ geographies }) =>
-          geographies.map((geo) => {
-            const d = data.find(
-              (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
-            );
-            return (
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-                fill={d ? recoveredColorScale(d["recovered"]) : "#F5F4F6"}
-                onMouseEnter={() => {
-                  data.find((s) => {
-                    const { NAME } = geo.properties;
-                    if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
-                      setTooltipContent(
-                        `${NAME} — ${rounded(s.recovered)} Recovered`
-                      );
-                    }
-                  });
-                }}
-                onMouseLeave={() => {
-                  setTooltipContent("");
-                }}
-                style={{
-                  default: {
-                    outline: "none",
-                    stroke: "#ca4cf5",
-                    strokeWidth: 0.1,
-                  },
-                  pressed: {
-                    stroke: "#ca4cf5",
-                    strokeWidth: 0.1,
-                    outline: "none",
-                  },
-                  hover: {
-                    stroke: "#ca4cf5",
-                    strokeWidth: 0.1,
-                    outline: "none",
-                  },
-                }}
-              />
-            );
-          })
-        }
-      </Geographies>
-    )
-  );
-  setConfirmed(false);
-  setDeaths(false);
-};
+  const handleRecovered = () => {
+    setRecovered(
+      data.length > 0 && (
+        <Geographies geography={geoUrl}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const d = data.find(
+                (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
+              );
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={d ? recoveredColorScale(d["recovered"]) : "#F5F4F6"}
+                  onMouseEnter={() => {
+                    data.find((s) => {
+                      const { NAME } = geo.properties;
+                      if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
+                        setTooltipContent(
+                          `${NAME} — ${rounded(s.recovered)} Recovered`
+                        );
+                      }
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipContent("");
+                  }}
+                  style={{
+                    default: {
+                      outline: "none",
+                      stroke: "#ca4cf5",
+                      strokeWidth: 0.1,
+                    },
+                    pressed: {
+                      stroke: "#ca4cf5",
+                      strokeWidth: 0.1,
+                      outline: "none",
+                    },
+                    hover: {
+                      stroke: "#ca4cf5",
+                      strokeWidth: 0.1,
+                      outline: "none",
+                    },
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+      )
+    );
+    setConfirmed(false);
+    setDeaths(false);
+    setBtn2(activeBtnStyle);
+    setBtn1(btnStyle);
+    setBtn3(btnStyle);
+  };
 
-const handleConfirmed = () => {
-  setRecovered(false);
-  setDeaths(false);
-  setConfirmed(
-    data.length > 0 && (
-      <Geographies geography={geoUrl}>
-        {({ geographies }) =>
-          geographies.map((geo) => {
-            const d = data.find(
-              (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
-            );
-            return (
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-                fill={d ? confirmedColorScale(d["active"]) : "#F5F4F6"}
-                onMouseEnter={() => {
-                  data.find((s) => {
-                    const { NAME } = geo.properties;
-                    if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
-                      setTooltipContent(`${NAME} — ${rounded(s.cases)} Cases`);
-                    }
-                  });
-                }}
-                onMouseLeave={() => {
-                  setTooltipContent("");
-                }}
-                style={{
-                  default: {
-                    outline: "none",
-                    stroke: "#F08080",
-                    strokeWidth: 0.2,
-                  },
-                  pressed: {
-                    stroke: "#F08080",
-                    strokeWidth: 0.2,
-                    outline: "none",
-                  },
-                  hover: {
-                    stroke: "#F08080",
-                    strokeWidth: 0.2,
-                    outline: "none",
-                  },
-                }}
-              />
-            );
-          })
-        }
-      </Geographies>
-    )
-  );
-};
+  const handleConfirmed = () => {
+    setBtn1(activeBtnStyle);
+    setBtn2(btnStyle);
+    setBtn3(btnStyle);
+    setRecovered(false);
+    setDeaths(false);
+    setConfirmed(
+      data.length > 0 && (
+        <Geographies geography={geoUrl}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const d = data.find(
+                (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
+              );
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={d ? confirmedColorScale(d["active"]) : "#F5F4F6"}
+                  onMouseEnter={() => {
+                    data.find((s) => {
+                      const { NAME } = geo.properties;
+                      if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
+                        setTooltipContent(
+                          `${NAME} — ${rounded(s.cases)} Cases`
+                        );
+                      }
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipContent("");
+                  }}
+                  style={{
+                    default: {
+                      outline: "none",
+                      stroke: "#F08080",
+                      strokeWidth: 0.2,
+                    },
+                    pressed: {
+                      stroke: "#F08080",
+                      strokeWidth: 0.2,
+                      outline: "none",
+                    },
+                    hover: {
+                      stroke: "#F08080",
+                      strokeWidth: 0.2,
+                      outline: "none",
+                    },
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+      )
+    );
+  };
 
-const handleDeaths = () => {
-  setConfirmed(false);
-  setRecovered(false);
-  setDeaths(
-    data.length > 0 && (
-      <Geographies geography={geoUrl}>
-        {({ geographies }) =>
-          geographies.map((geo) => {
-            const d = data.find(
-              (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
-            );
-            return (
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-                fill={d ? deathsColorScale(d["deaths"]) : "#F5F4F6"}
-                onMouseEnter={() => {
-                  data.find((s) => {
-                    const { NAME } = geo.properties;
-                    if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
-                      setTooltipContent(
-                        `${NAME} — ${rounded(s.deaths)} Deaths`
-                      );
-                    }
-                  });
-                }}
-                onMouseLeave={() => {
-                  setTooltipContent("");
-                }}
-                style={{
-                  default: {
-                    outline: "none",
-                    stroke: "#08519c",
-                    strokeWidth: 0.1,
-                  },
-                  pressed: {
-                    stroke: "#08519c",
-                    strokeWidth: 0.1,
-                    outline: "none",
-                  },
-                  hover: {
-                    stroke: "#08519c",
-                    strokeWidth: 0.1,
-                    outline: "none",
-                  },
-                }}
-              />
-            );
-          })
-        }
-      </Geographies>
-    )
-  );
-};
+  const handleDeaths = () => {
+    setBtn3(activeBtnStyle);
+    setBtn1(btnStyle);
+    setBtn2(btnStyle);
+    setConfirmed(false);
+    setRecovered(false);
+    setDeaths(
+      data.length > 0 && (
+        <Geographies geography={geoUrl}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const d = data.find(
+                (s) => s.countryInfo.iso3 === geo.properties.ISO_A3
+              );
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={d ? deathsColorScale(d["deaths"]) : "#F5F4F6"}
+                  onMouseEnter={() => {
+                    data.find((s) => {
+                      const { NAME } = geo.properties;
+                      if (s.countryInfo.iso3 === geo.properties.ISO_A3) {
+                        setTooltipContent(
+                          `${NAME} — ${rounded(s.deaths)} Deaths`
+                        );
+                      }
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipContent("");
+                  }}
+                  style={{
+                    default: {
+                      outline: "none",
+                      stroke: "#08519c",
+                      strokeWidth: 0.1,
+                    },
+                    pressed: {
+                      stroke: "#08519c",
+                      strokeWidth: 0.1,
+                      outline: "none",
+                    },
+                    hover: {
+                      stroke: "#08519c",
+                      strokeWidth: 0.1,
+                      outline: "none",
+                    },
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+      )
+    );
+  };
 
   return (
     <>
@@ -235,13 +249,13 @@ const handleDeaths = () => {
       </div>
 
       <div className="columns is-mobile is-centered mb-5 pb-2 mt-1">
-        <button onClick={handleConfirmed} className="btn">
+        <button onClick={handleConfirmed} className="btn" style={btn1}>
           Confirmed
         </button>
-        <button onClick={handleRecovered} className="btn">
+        <button onClick={handleRecovered} className="btn" style={btn2}>
           Recovered
         </button>
-        <button onClick={handleDeaths} className="btn">
+        <button onClick={handleDeaths} className="btn" style={btn3}>
           Deaths
         </button>
       </div>
@@ -335,6 +349,16 @@ const containerContent = {
   left: "0",
   right: "0",
   bottom: "0",
+};
+
+const activeBtnStyle = {
+  backgroundColor: "whitesmoke",
+  color: "black",
+  boxShadow: "2px 4px #888888",
+};
+
+const btnStyle = {
+  backgroundColor: "#862be7",
 };
 
 export default memo(MapChart);
