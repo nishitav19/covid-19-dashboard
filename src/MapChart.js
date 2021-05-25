@@ -239,7 +239,7 @@ const MapChart = ({ setTooltipContent }) => {
 
   return (
     <>
-      <div className="columns is-mobile is-centered has-background-black mb-5">
+      <div className="columns is-mobile is-centered bg mb-5">
         <div
           className="is-size-2-desktop is-size-3-tablet is-size-4-mobile has-text-centered mt-2 py-5 is-uppercase
                                 has-text-white has-text-weight-bold"

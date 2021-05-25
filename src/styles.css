@@ -18,8 +18,8 @@ svg {
 }
 
 .bg {
-   /* background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%); */
-   background: black;
+   background: linear-gradient(110deg, #000000 60%, #313131 60%);
+   /* background: black; */
 }
 
 .lilac {
